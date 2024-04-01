@@ -12,7 +12,7 @@ const Cart = () => {
   useEffect(()=>{
     setAmount(cart.reduce((acc,curr)=>acc+curr.price,0))
   },[cart])
-  // console.log(cart[0].title)
+  console.log(cart)
   return (
     <div className="">
       {
@@ -22,7 +22,7 @@ const Cart = () => {
               {
                 cart.map((item,index)=>{
                   return(
-                    <Cartitem key={item.id} item={item} index={index}></Cartitem>
+                    <Cartitem key={item._id} item={item} index={index}></Cartitem>
                   )
                 })
               }
