@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 4000;
 const database = require("./config/database");
 
 const productRoutes = require("./routes/product");
+const cartRoutes = require("./routes/cart");
 
 database.connect();
 
@@ -17,6 +18,8 @@ app.use(fileUpload({
 }));
 
 app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/cart", cartRoutes);
+
 
 app.get("/", (req, res) => {
 	return res.json({
