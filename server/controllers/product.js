@@ -55,3 +55,22 @@ exports.addProduct = async (req, res) => {
         })
     }
 };
+
+exports.getProducts = async (req, res) => {
+    try {
+        // Fetch all products from the database
+        const products = await Product.find();
+        // Send the products as a response
+        res.status(200).json({
+            success: true,
+            message: "Products retrieved successfully",
+            products: products
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
+};
