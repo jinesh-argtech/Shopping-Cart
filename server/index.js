@@ -5,9 +5,18 @@ const PORT = process.env.PORT || 4000;
 
 const database = require("./config/database");
 
+const productRoutes = require("./routes/product");
+
 database.connect();
 
 app.use(express.json());
+const fileUpload= require("express-fileupload");
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
+
+app.use("/api/v1/product", productRoutes);
 
 app.get("/", (req, res) => {
 	return res.json({
@@ -19,3 +28,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`App is running at ${PORT}`)
 })
+
+const { cloudinaryConnect } = require("./config/cloudinary");
+cloudinaryConnect()
