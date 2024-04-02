@@ -74,3 +74,37 @@ exports.getProducts = async (req, res) => {
         });
     }
 };
+
+exports.searchProducts = async (req, res) => {
+    try {
+        const { search } = req.body; // Assuming search query is sent in the request body
+
+        let query = {};
+        // Check if there is a search query
+        if (search) {
+            // Case-insensitive search for products containing the search query
+            query = {
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { description: { $regex: search, $options: 'i' } }
+                ]
+            };
+        }
+
+        // Fetch products from the database based on the search query
+        const products = await Product.find(query);
+
+        // Send the products as a response
+        res.status(200).json({
+            success: true,
+            message: "Products retrieved successfully",
+            products: products
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
+};
