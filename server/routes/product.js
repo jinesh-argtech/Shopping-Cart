@@ -4,7 +4,7 @@ const { isAdmin, isCustomer, auth } = require("../middlewares/auth")
 const router = express.Router()
 
 router.post("/addProduct",auth,isAdmin,addProduct)
-router.get("/getProducts",auth,isCustomer,getProducts)
+router.get("/getProducts",auth,getProducts)
 router.post("/searchProducts",auth,isCustomer,searchProducts)
 
 module.exports = router

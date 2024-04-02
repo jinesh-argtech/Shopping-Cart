@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
 		},
 		accountType: {
 			type: String,
-			enum: ["Admin", "Customer"],
+			enum: ["Admin","Customer"],
 			required: true,
 		},
 		token: {

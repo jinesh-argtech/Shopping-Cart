@@ -3,19 +3,23 @@ import toast from "react-hot-toast";
 import { Spinner } from "../components/Spinner";
 import { Item } from "../components/Item";
 import { apiConnector } from "../services/apiconnecter";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   // console.log("1")
-  const API_URL = "http://localhost:4000/api/v1/product/searchProducts";
   const [items,setItems]=useState([])
   const [loading,setLoading]=useState(false)
   const [searchQuery, setSearchQuery] = useState("");
+  const { token } = useSelector((state) => state.auth)
+  console.log(token)
+  const API_URL = "http://localhost:4000/api/v1/product/searchProducts";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await apiConnector("POST", API_URL, { search: searchQuery });
+      const res = await apiConnector("POST", API_URL, { search: searchQuery, token });
+      console.log(res)
       setItems(res.data.products);
       setLoading(false);
     } catch (error) {
@@ -24,25 +28,34 @@ const Home = () => {
     }
   };
 
-  async function fetchdata(){
+  async function fetchData() {
     try {
-      setLoading(true)
-      console.log(1)
-      const res = await apiConnector("POST", API_URL, { search: searchQuery });
-      const data= res
-      setItems(data)
+      setLoading(true);
+      console.log(1);
+      
+      const res = await apiConnector("POST", API_URL, { search: searchQuery, token });
+      
+      if (!res) {
+        // Handle the case where response is falsy
+        throw new Error("No response received from the server");
+      }
+  
+      console.log(2);
+      console.log(res); // Log the response for debugging
+      setItems(res);
       setLoading(false)
     } catch (error) {
-      toast.error("404 error not found")
-    }
+      console.error(error); // Log the error for debugging
+      toast.error("404 error not found");
+    } 
   }
+  
 
   useEffect(()=>{
     // console.log("1")
-    fetchdata()
-  },[searchQuery])
+    fetchData()
+  },[])
 
-  // console.log(item.id)
 
   return (
     <div>

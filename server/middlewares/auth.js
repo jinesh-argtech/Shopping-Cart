@@ -10,10 +10,12 @@ dotenv.config();
 exports.auth = async (req, res, next) => {
 	try {
 		// Extracting JWT from request cookies, body or header
+        console.log(req.body)
 		const token =
+            req.body.token ||
 			req.cookies.token ||
-			req.body.token ||
 			req.header("Authorization").replace("Bearer ", "");
+
 
 		// If JWT is missing, return 401 Unauthorized response
 		if (!token) {
@@ -22,7 +24,7 @@ exports.auth = async (req, res, next) => {
 
 		try {
 			// Verifying the JWT using the secret key stored in environment variables
-			const decode = await jwt.verify(token, process.env.JWT_SECRET);
+			const decode = jwt.verify(token, process.env.JWT_SECRET);
 			console.log(decode);
 			// Storing the decoded JWT payload in the request object for further use
 			req.user = decode;
@@ -46,11 +48,12 @@ exports.auth = async (req, res, next) => {
 exports.isCustomer = async (req, res, next) => {
 	try {
 		const userDetails = await User.findOne({ email: req.user.email });
+        console.log(userDetails)
 
 		if (userDetails.accountType !== "Customer") {
 			return res.status(401).json({
 				success: false,
-				message: "This is a Protected Route for Students",
+				message: "This is a Protected Route for Customer",
 			});
 		}
 		next();
