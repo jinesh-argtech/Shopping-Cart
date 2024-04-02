@@ -29,9 +29,7 @@ const Home = () => {
       setLoading(true)
       console.log(1)
       const res = await apiConnector("POST", API_URL, { search: searchQuery });
-      console.log(res)
       const data= res
-      console.log(data)
       setItems(data)
       setLoading(false)
     } catch (error) {
