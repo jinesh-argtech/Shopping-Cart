@@ -4,6 +4,7 @@ import Cart from "./pages/Cart"
 import Navbar from "./components/Navbar"
 import LoginForm from "./pages/Login";
 import SignUp from "./pages/Signup";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   return (
@@ -12,10 +13,18 @@ const App = () => {
         <Navbar></Navbar>
       </div>
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/cart" element={<Cart></Cart>}></Route>
-        <Route path="/signup" element={<SignUp></SignUp>}/>
-        <Route path="/login" element={<LoginForm></LoginForm>}/>
+        <Route path="/" element={<PrivateRoute/>}>
+          <Route path='' element={<Home/>}/>
+        </Route>
+        <Route path="/cart" element={<PrivateRoute/>}>
+          <Route exact path='/cart' element={<Cart/>}/>
+        </Route>
+        <Route path="/signup" element={<PrivateRoute/>}>
+          <Route exact path='/signup' element={<SignUp/>}/>
+        </Route>
+        <Route path="/login" element={<PrivateRoute/>}>
+          <Route exact path='/login' element={<LoginForm/>}/>
+        </Route>
       </Routes>
     </div>
   );

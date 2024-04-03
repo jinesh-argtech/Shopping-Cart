@@ -6,7 +6,6 @@ import { signUp } from '../services/authApi';
 const SignUp = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [showPassword, setShowPassword] = useState(false);
     const [values, setValues] = useState({
         firstName: "",
         lastName: "",
@@ -89,7 +88,7 @@ const SignUp = () => {
                                 <input
                                     id='password'
                                     name='password'
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={'password'}
                                     required=''
                                     value={values.password}
                                     onChange={handleChange}
@@ -101,7 +100,7 @@ const SignUp = () => {
                                 <input
                                     id='confirmPassword'
                                     name='confirmPassword'
-                                    type={showPassword ? 'text' : 'password'}
+                                    type={'password'}
                                     required=''
                                     value={values.confirmPassword}
                                     onChange={handleChange}

@@ -11,7 +11,7 @@ const Home = () => {
   const [loading,setLoading]=useState(false)
   const [searchQuery, setSearchQuery] = useState("");
   const { token } = useSelector((state) => state.auth)
-  console.log(token)
+  const { user } = useSelector((state) => state.user)
   const API_URL = "http://localhost:4000/api/v1/product/searchProducts";
 
   const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const Home = () => {
       setLoading(true);
       const res = await apiConnector("POST", API_URL, { search: searchQuery, token });
       console.log(res)
-      setItems(res.data.products);
+      setItems(res);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -46,24 +46,20 @@ const Home = () => {
       setLoading(false)
     } catch (error) {
       console.error(error); // Log the error for debugging
-      if(token!==null){
-        toast.error("404 error not found");
-      }
-      
+      if( user && user?.accountType !== "Admin")
+        toast.error("404 error not found");      
     } 
   }
   
 
   useEffect(()=>{
-    // console.log("1")
-    fetchData()
+      fetchData()
   },[])
-
 
   return (
     <div>
       {
-        token !== null && (
+        token !== null && user && user?.accountType === "Customer" &&(
           <div>
           <form onSubmit={handleSubmit} action="/search" className="max-w-[480px] w-full px-4 mx-auto pt-4" >
         <div className="relative">

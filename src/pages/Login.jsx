@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import { Link, useNavigate } from 'react-router-dom';
-import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { login } from '../services/operations/authAPI';
 import { login } from '../services/authApi';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [showPassword, setShowPassword] = useState(false);
+    // const [showPassword, setShowPassword] = useState(false);
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -72,7 +69,7 @@ const Login = () => {
                                 <input
                                     id='password'
                                     name='password'
-                                    type={showPassword ? 'text' : 'password'}
+                                    type='password'
                                     required=''
                                     value={values.password}
                                     onChange={handleChange}
@@ -88,7 +85,7 @@ const Login = () => {
                             </div>
 
                             <div className='text-sm leading-5'>
-                                <a href='#' className='font-medium text-blue-500 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150'>
+                                <a href='/' className='font-medium text-blue-500 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150'>
                                     Forgot your password?
                                 </a>
                             </div>

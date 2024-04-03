@@ -8,6 +8,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.user)
+  console.log(user?.accountType)
   // console.log(token)
   function clickHandler(){
     dispatch(logout(navigate))
@@ -18,17 +20,27 @@ const Navbar = () => {
         <img src="../logo.png" alt="ojwdi" className=" h-14"></img>
       </NavLink>
       <div className="flex items-center font-medium text-slate-100 mr-5 space-x-6">
-        <NavLink to="/">
-          Home
-        </NavLink>
-        <NavLink to="/cart" className="relative">
-          <FaShoppingCart className="text-2xl"></FaShoppingCart>
-          {
-            cart.length>0&&
-            <span className="absolute -top-1 -right-2 bg-green-600 text-xs w-5 h-5 flex 
-                    justify-center items-center animate-bounce rounded-full text-white">{cart.length}</span>
-          }
-        </NavLink>
+        {
+          user && user?.accountType === "Customer" &&(
+            <NavLink to="/">
+              Home
+            </NavLink>
+          )
+        }
+        {
+          user && user?.accountType === "Customer" &&(
+            <NavLink to="/cart" className="relative">
+              <FaShoppingCart className="text-2xl"></FaShoppingCart>
+              {
+                cart.length>0&&
+                <span className="absolute -top-1 -right-2 bg-green-600 text-xs w-5 h-5 flex 
+                        justify-center items-center animate-bounce rounded-full text-white">{cart.length}</span>
+              }
+            </NavLink>
+          )
+        }
+        
+        
         {
           token===null &&(
               <Link className='' to="/login">
