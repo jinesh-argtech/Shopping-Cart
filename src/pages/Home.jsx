@@ -46,7 +46,10 @@ const Home = () => {
       setLoading(false)
     } catch (error) {
       console.error(error); // Log the error for debugging
-      toast.error("404 error not found");
+      if(token!==null){
+        toast.error("404 error not found");
+      }
+      
     } 
   }
   
@@ -59,7 +62,10 @@ const Home = () => {
 
   return (
     <div>
-       <form onSubmit={handleSubmit} action="/search" className="max-w-[480px] w-full px-4 mx-auto pt-4" >
+      {
+        token !== null && (
+          <div>
+          <form onSubmit={handleSubmit} action="/search" className="max-w-[480px] w-full px-4 mx-auto pt-4" >
         <div className="relative">
           <input
             type="text"
@@ -106,6 +112,10 @@ const Home = () => {
             Items Not found
           </div>
         
+      }
+          </div>
+          
+        )
       }
     </div>
   );
