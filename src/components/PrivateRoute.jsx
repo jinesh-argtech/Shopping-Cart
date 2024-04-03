@@ -1,4 +1,4 @@
-import { Route, Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = ({ element, ...rest }) => {
   const token = localStorage.getItem('token');
@@ -7,7 +7,7 @@ const PrivateRoute = ({ element, ...rest }) => {
   // If user is logged in and tries to access /login or /signup, redirect them
   if (token && (window.location.pathname === '/login' || window.location.pathname === '/signup')) {
     return <Navigate to="/" replace />;
-  }else if(!token){
+  }else if(!token && (window.location.pathname === '/login' || window.location.pathname === '/signup')){
     return <Outlet></Outlet>
   }
 

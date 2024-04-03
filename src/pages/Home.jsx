@@ -28,34 +28,23 @@ const Home = () => {
     }
   };
 
-  async function fetchData() {
-    try {
-      setLoading(true);
-      console.log(1);
-      
-      const res = await apiConnector("POST", API_URL, { search: searchQuery, token });
-      
-      if (!res) {
-        // Handle the case where response is falsy
-        throw new Error("No response received from the server");
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const res = await apiConnector("POST", API_URL, { search: searchQuery, token });
+        if (!res) {
+          throw new Error("No response received from the server");
+        }
+        setItems(res);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        if (user && user?.accountType === "Admin") toast.error("404 error not found");
       }
-  
-      console.log(2);
-      console.log(res); // Log the response for debugging
-      setItems(res);
-      setLoading(false)
-    } catch (error) {
-      console.error(error); // Log the error for debugging
-      if( user && user?.accountType !== "Admin")
-        toast.error("404 error not found");      
-    } 
-  }
-  
-
-  useEffect(()=>{
-      fetchData()
-  },[])
-
+    }
+    fetchData();
+  }, [API_URL, searchQuery, token, user]);
   return (
     <div>
       {
