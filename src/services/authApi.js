@@ -2,7 +2,6 @@ import { toast } from "react-hot-toast"
 import { apiConnector } from "./apiconnecter"
 import { setToken } from "../redux/Slices/authSlice"
 import { setUser } from "../redux/Slices/userSlice"
-import { useSelector } from "react-redux"
 
 export function signUp(
     accountType,
