@@ -15,7 +15,7 @@ export function signUp(
   ) {
     return async (dispatch) => {
       const toastId = toast.loading("Loading...")
-      const SIGNUP_API = "http://localhost:4000/api/v1/auth/signup"
+      const SIGNUP_API = "https://shopping-cart-w0ki.onrender.com/api/v1/auth/signup"
       try {
         const response = await apiConnector("POST", SIGNUP_API, {
           accountType,
@@ -45,7 +45,7 @@ export function signUp(
   export function login(email, password, navigate) {
     return async (dispatch) => {
       const toastId = toast.loading("Loading...")
-      const LOGIN_API = "http://localhost:4000/api/v1/auth/login"
+      const LOGIN_API = "https://shopping-cart-w0ki.onrender.com/api/v1/auth/login"
       try {
         const response = await apiConnector("POST", LOGIN_API, {
           email,
@@ -87,7 +87,7 @@ export function signUp(
   export function addProduct(name, price, description, imageFile,token) {
     return async (dispatch) => {
       const toastId = toast.loading("Adding product...")
-      const ADD_PRODUCT_API = "http://localhost:4000/api/v1/product/addProduct"
+      const ADD_PRODUCT_API = "https://shopping-cart-w0ki.onrender.com/api/v1/product/addProduct"
   
       try {
         // Create FormData object to send image file
