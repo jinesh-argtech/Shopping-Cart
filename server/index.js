@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 
 app.use(
 	cors({
-		origin:"http://localhost:3000",
+		origin:"https://main--charming-dieffenbachia-aef712.netlify.app",
 		credentials:true,
 	})
 )
