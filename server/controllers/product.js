@@ -20,6 +20,7 @@ exports.addProduct = async (req, res) => {
         const {name,description,price} = req.body;
 
         const imageFile = req.files.imageFile;
+        console.log(imageFile)
 
         const supportedFiles = ["png","jpeg","jpg"];
         const fileType= imageFile.name.split('.')[1].toLowerCase();
@@ -30,8 +31,6 @@ exports.addProduct = async (req, res) => {
                 message: "File type not supported"
             })
         }
-
-        console.log(imageFile)
 
         const response = await uploadFileToCloudinariy(imageFile,"FileUploadApp")
 

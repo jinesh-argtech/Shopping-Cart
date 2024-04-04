@@ -2,6 +2,7 @@ import { toast } from "react-hot-toast"
 import { apiConnector } from "./apiconnecter"
 import { setToken } from "../redux/Slices/authSlice"
 import { setUser } from "../redux/Slices/userSlice"
+import { useSelector } from "react-redux"
 
 export function signUp(
     accountType,
@@ -82,4 +83,45 @@ export function signUp(
       navigate("/login")
     }
   }
+
+  export function addProduct(name, price, description, imageFile,token) {
+    return async (dispatch) => {
+      const toastId = toast.loading("Adding product...")
+      const ADD_PRODUCT_API = "http://localhost:4000/api/v1/product/addProduct"
+  
+      try {
+        // Create FormData object to send image file
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('imageFile', imageFile);
+        formData.append('token', token);
+  
+        const response = await fetch(ADD_PRODUCT_API, {
+          method: 'POST',
+          body: formData,
+        });
+  
+        const responseData = await response.json();
+  
+        console.log("ADD PRODUCT API RESPONSE............", responseData)
+  
+        if (!responseData.success) {
+          throw new Error(responseData.message)
+        }
+        
+        toast.success("Product added successfully")
+        // You can add any additional logic here based on your application's requirements
+  
+      } catch (error) {
+        console.log("ADD PRODUCT API ERROR............", error)
+        toast.error("Failed to add product")
+        // You can add additional error handling logic here based on your application's requirements
+      }
+  
+      toast.dismiss(toastId)
+    }
+  }
+  
   

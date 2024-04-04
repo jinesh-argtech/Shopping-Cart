@@ -4,6 +4,7 @@ import { Spinner } from "../components/Spinner";
 import { Item } from "../components/Item";
 import { apiConnector } from "../services/apiconnecter";
 import { useSelector } from "react-redux";
+import AddProduct from "../components/AddProduct";
 
 const Home = () => {
   // console.log("1")
@@ -40,13 +41,18 @@ const Home = () => {
         setLoading(false);
       } catch (error) {
         console.error(error);
-        if (user && user?.accountType === "Admin") toast.error("404 error not found");
+        if (user && user?.accountType !== "Admin") toast.error("404 error not found");
       }
-    }
+    } 
     fetchData();
   }, [API_URL, searchQuery, token, user]);
   return (
     <div>
+      {
+        token !== null && user && user?.accountType === "Admin" &&(
+          <AddProduct></AddProduct>
+        )
+      }
       {
         token !== null && user && user?.accountType === "Customer" &&(
           <div>

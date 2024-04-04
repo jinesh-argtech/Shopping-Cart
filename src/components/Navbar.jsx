@@ -28,6 +28,13 @@ const Navbar = () => {
           )
         }
         {
+          user && user?.accountType === "Admin" &&(
+            <NavLink to="/">
+              Add Product
+            </NavLink>
+          )
+        }
+        {
           user && user?.accountType === "Customer" &&(
             <NavLink to="/cart" className="relative">
               <FaShoppingCart className="text-2xl"></FaShoppingCart>
