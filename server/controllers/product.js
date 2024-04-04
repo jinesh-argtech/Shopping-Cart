@@ -17,7 +17,9 @@ async function uploadFileToCloudinariy(file,folder,quality){
 
 exports.addProduct = async (req, res) => {
     try {
+        concole.log(1)
         const {name,description,price} = req.body;
+        concole.log(2)
 
         const imageFile = req.files.imageFile;
         console.log(imageFile)
