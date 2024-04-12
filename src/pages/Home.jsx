@@ -13,8 +13,8 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.user)
-  // const API_URL = "https://shopping-cart-w0ki.onrender.com/api/v1/product/searchProducts";
-  const API_URL = "http://localhost:4000/api/v1/product/searchProducts";
+  const API_URL = "https://shopping-cart-w0ki.onrender.com/api/v1/product/searchProducts";
+  // const API_URL = "http://localhost:4000/api/v1/product/searchProducts";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
